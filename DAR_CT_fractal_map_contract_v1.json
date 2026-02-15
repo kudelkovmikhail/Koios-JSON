@@ -1,0 +1,272 @@
+{
+  "meta": {
+    "document_id": "DAR-CT-FRACTAL-MAP-CONTRACT",
+    "title": "Kontrakt danych DAR/CT pod generator mapy fraktalnej",
+    "version": "1.0",
+    "date": "2026-02-15",
+    "depends_on": "DAR_CT_meta_llm_key.json",
+    "goal": "Standaryzacja danych do budowy mapy fraktalnej na podstawie wkladu i ocen."
+  },
+  "review_and_fixes": {
+    "what_was_missing_in_previous_file": [
+      "Brak jawnego kontraktu wejscia/wyjscia dla drugiego programu.",
+      "Brak regul normalizacji ocen (np. 9.5/10 vs N/A).",
+      "Brak aliasow linii fraktala (np. KOIOS/Python -> KOIOS).",
+      "Brak formalnych regul trendu, momentum i korelacji miedzy liniami."
+    ],
+    "fixes_introduced_here": [
+      "Dodany machine-readable model ingestu (events).",
+      "Dodane jawne reguly normalizacji score i confidence.",
+      "Dodane kanoniczne enumy + mapowania aliasow.",
+      "Dodany kontrakt wyjscia mapy fraktalnej (nodes/edges/timeline)."
+    ]
+  },
+  "canonical_enums": {
+    "source_type": [
+      "DAR",
+      "CT"
+    ],
+    "contribution_type": [
+      "achievement",
+      "blocker",
+      "insight",
+      "decision",
+      "execution",
+      "recovery"
+    ],
+    "status": [
+      "LAUNCH",
+      "REGENERATION",
+      "OPERATIONAL",
+      "HIGH_PERFORMANCE",
+      "WARNING",
+      "CRISIS",
+      "RECOVERY",
+      "BREAKTHROUGH",
+      "DEEP_WORK",
+      "PRODUCTION",
+      "META_WORK",
+      "REST_AND_SPRINT"
+    ],
+    "archetype": [
+      "Mag",
+      "Architekt",
+      "Nauczyciel",
+      "Zolw",
+      "Smok"
+    ],
+    "fractal_lines": [
+      "KOIOS",
+      "Praca",
+      "Stan",
+      "Relacje",
+      "Studia",
+      "Uczelnia",
+      "Finanse",
+      "Mieszkanie",
+      "Dziewczyna",
+      "Rodzina",
+      "Kudelkowo",
+      "Zdrowie",
+      "META"
+    ]
+  },
+  "line_alias_map": {
+    "KOIOS/Python": "KOIOS",
+    "KOIOS/CT": "KOIOS",
+    "Python": "KOIOS",
+    "META": "META",
+    "Kudełkowo": "Kudelkowo",
+    "Zółw": "Zolw",
+    "Żółw": "Zolw"
+  },
+  "normalization_rules": {
+    "daily_score_10_scale": {
+      "input_examples": [
+        "9.5/10",
+        8.0,
+        "N/A (Sprint Score: 9.5)"
+      ],
+      "output_field": "daily_score_norm_0_1",
+      "formula": "if numeric_or_fraction -> value/10; if N/A with embedded number -> embedded/10; else null",
+      "clamp_to_range": [
+        0.0,
+        1.0
+      ]
+    },
+    "rpg_score": {
+      "output_field": "rpg_score_norm_0_1",
+      "formula": "if numeric -> min(max(value, -20), 20) transformed to (value+20)/40; if N/A -> null",
+      "note": "Zaklada roboczo zakres dzienny -20..+20, mozna zmienic per projekt."
+    },
+    "importance": {
+      "output_field": "importance_norm_0_1",
+      "formula": "importance/5"
+    },
+    "confidence": {
+      "levels": {
+        "high": 0.9,
+        "medium": 0.7,
+        "low": 0.5
+      },
+      "default_policy": "DAR frontmatter fields = high; opisowe inferencje = medium; heurystyki aliasow = low"
+    }
+  },
+  "ingestion_contract": {
+    "description": "Program mapy fraktalnej powinien ingestowac dane jako znormalizowane eventy.",
+    "event_record_required_fields": [
+      "event_id",
+      "source_type",
+      "source_id",
+      "date",
+      "day_index",
+      "line",
+      "contribution_type",
+      "score_raw",
+      "score_norm",
+      "weight",
+      "confidence"
+    ],
+    "event_record_types": {
+      "event_id": "string (unikalny, np. DAR#010:line:KOIOS)",
+      "source_type": "enum(source_type)",
+      "source_id": "string (DAR#..., CT#...)",
+      "date": "YYYY-MM-DD",
+      "day_index": "integer 1..100",
+      "line": "enum(fractal_lines) after alias mapping",
+      "contribution_type": "enum(contribution_type)",
+      "score_raw": "number|string",
+      "score_norm": "number 0..1",
+      "weight": "number > 0",
+      "confidence": "number 0..1",
+      "evidence": "string optional (fragment zrodlowy)"
+    }
+  },
+  "transform_rules": {
+    "from_dar": [
+      "Dla kazdej pary (line, points) w rpg_breakdown utworz event contribution_type=execution.",
+      "Dla key_achievements utworz eventy achievement na liniach z fractal_lines_active (rowne rozdzielenie wagi).",
+      "Dla blockers utworz eventy blocker o ujemnym score_norm (lub znak poprzez contribution_type).",
+      "Status dnia mapuj do mnoznika status_multiplier."
+    ],
+    "from_ct": [
+      "Kazdy key_insight -> event contribution_type=insight.",
+      "importance wyznacza weight bazowy.",
+      "connections generuja krawedzie semantyczne miedzy eventami/wezłami."
+    ],
+    "status_multiplier": {
+      "LAUNCH": 1.05,
+      "REGENERATION": 0.95,
+      "OPERATIONAL": 1.0,
+      "HIGH_PERFORMANCE": 1.1,
+      "WARNING": 0.85,
+      "CRISIS": 0.75,
+      "RECOVERY": 0.9,
+      "BREAKTHROUGH": 1.15,
+      "DEEP_WORK": 1.05,
+      "PRODUCTION": 1.08,
+      "META_WORK": 1.0,
+      "REST_AND_SPRINT": 0.98
+    }
+  },
+  "scoring_model": {
+    "line_daily_score_formula": "sum((score_norm * weight * status_multiplier) for events in line,day)",
+    "line_rolling_windows": {
+      "short_window_days": 3,
+      "medium_window_days": 7,
+      "long_window_days": 30
+    },
+    "trend_metrics": {
+      "momentum_7d": "mean(last_7_days) - mean(previous_7_days)",
+      "stability_7d": "1 - normalized_stddev(last_7_days)",
+      "volatility_7d": "normalized_stddev(last_7_days)"
+    },
+    "risk_flags": {
+      "line_decline": "momentum_7d < -0.08",
+      "high_volatility": "volatility_7d > 0.65",
+      "critical_drop": "2 consecutive days below line threshold"
+    }
+  },
+  "fractal_map_output_contract": {
+    "description": "Docelowy format dla programu budujacego mape fraktalna.",
+    "required_top_level": [
+      "map_meta",
+      "nodes",
+      "edges",
+      "timeline",
+      "alerts"
+    ],
+    "map_meta": {
+      "generated_at": "ISO-8601 datetime",
+      "range": {
+        "from_day_index": "integer",
+        "to_day_index": "integer"
+      },
+      "source_counts": {
+        "DAR": "integer",
+        "CT": "integer"
+      }
+    },
+    "nodes_schema": {
+      "id": "string (line id, np. KOIOS)",
+      "label": "string",
+      "total_score": "number",
+      "score_7d": "number",
+      "momentum_7d": "number",
+      "volatility_7d": "number",
+      "stability_7d": "number",
+      "status": "up|flat|down",
+      "evidence_refs": "array of source_id"
+    },
+    "edges_schema": {
+      "from": "line id",
+      "to": "line id",
+      "strength": "number 0..1",
+      "relation_type": "correlation|causal_hint|co_activation",
+      "lag_days": "integer >= 0",
+      "evidence_refs": "array of source_id"
+    },
+    "timeline_schema": {
+      "day_index": "integer",
+      "date": "YYYY-MM-DD",
+      "line_scores": "object(line->score)",
+      "daily_score_norm_0_1": "number|null",
+      "rpg_score_norm_0_1": "number|null"
+    },
+    "alerts_schema": {
+      "id": "string",
+      "severity": "info|warning|critical",
+      "line": "line id or null",
+      "message": "string",
+      "rule": "string"
+    }
+  },
+  "interoperability_for_second_program": {
+    "minimum_required_inputs": [
+      "DAR: id,date,day_index,status,fractal_lines_active,rpg_breakdown",
+      "CT: id,date,day_index,importance,fractal_lines,key_insights"
+    ],
+    "recommended_inputs": [
+      "DAR daily_score",
+      "DAR key_achievements/blockers",
+      "CT tags/connections/archetype"
+    ],
+    "versioning_policy": {
+      "contract_semver": true,
+      "breaking_change_rule": "Zmiana required fields lub enum values => major version bump."
+    }
+  },
+  "quality_checks": {
+    "pre_ingest": [
+      "Walidacja id regex.",
+      "Sprawdzenie day_index zakres 1..100.",
+      "Normalizacja aliasow linii.",
+      "Dedup event_id."
+    ],
+    "post_ingest": [
+      "Czy kazdy dzien ma przynajmniej jeden event.",
+      "Czy sumy line_scores nie zawieraja NaN/null.",
+      "Czy edges strength miesci sie w 0..1."
+    ]
+  }
+}

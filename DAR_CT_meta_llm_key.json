@@ -1,0 +1,251 @@
+{
+  "meta": {
+    "document_id": "DAR-CT-META-LLM-KEY",
+    "title": "Meta-klucz do odczytywania DAR i Coffee Talks przez LLM",
+    "version": "1.0",
+    "date": "2026-02-15",
+    "purpose": "Umożliwienie spójnego meta-zrozumienia dwóch korpusów: dzienników aktywności (DAR) i rozmów filozoficznych (CT). LLM korzysta z tego pliku jako z mapy semantyki tagów YML, relacji między dokumentami oraz pojęć rdzeniowych.",
+    "source_documents": [
+      "000_Critical_DAR (1).pdf — codzienny dziennik aktywności (Daily Activity Report)",
+      "000_critical_coffeetalks.pdf — rozmowy filozoficzne (Coffee Talks)"
+    ],
+    "encoding": "UTF-8"
+  },
+
+  "document_types": {
+    "DAR": {
+      "name_pl": "Dziennik Aktywności (Daily Activity Report)",
+      "description": "Codzienny raport operacyjny: ocena dnia, postęp w liniach fraktala (RPG score od Day 8), kluczowe osiągnięcia, blokery, kontekst architekta. Powiązany z dniem X/100 w sprincie KOIOS Genesis.",
+      "typical_sections": ["YML frontmatter", "Postęp operacyjny", "Kluczowe wydarzenia", "Analiza/Korekty architekta", "Plan na jutro", "Metryki/porównania"],
+      "id_pattern": "DAR#XXX",
+      "id_example": "DAR#001 … DAR#012"
+    },
+    "CT": {
+      "name_pl": "Coffee Talk — rozmowa filozoficzna",
+      "description": "Pojedyncza rozmowa filozoficzno-strategiczna BIOF + AI (Claude jako Architekt). Temat jednego insightu lub zestawu insightów. Powiązana z day_index i z innymi CT oraz projektami przez connections.",
+      "typical_sections": ["YML frontmatter", "GENEZA", "INSIGHT(I)", "PODSUMOWANIE", "NOTA RETROSPEKTYWNA (opcjonalnie)"],
+      "id_pattern": "CT#XXX lub CT#XXX.5",
+      "id_example": ["CT#001", "CT#001.5", "CT#002 … CT#016"]
+    }
+  },
+
+  "dar_yml_spec": {
+    "description": "Każdy wpis DAR zaczyna się od bloku YML między --- a ---. Poniżej znaczenie pól.",
+    "fields": {
+      "id": {
+        "type": "string",
+        "format": "DAR#NNN",
+        "required": true,
+        "meaning": "Unikalny identyfikator raportu (np. DAR#007)."
+      },
+      "type": {
+        "type": "literal",
+        "value": "DAR",
+        "required": true,
+        "meaning": "Typ dokumentu — zawsze DAR."
+      },
+      "date": {
+        "type": "string",
+        "format": "YYYY-MM-DD",
+        "required": true,
+        "meaning": "Data dnia, którego dotyczy raport."
+      },
+      "day_index": {
+        "type": "integer",
+        "range": [1, 100],
+        "required": true,
+        "meaning": "Numer dnia w sprincie (X/100). Łączy DAR z tym samym dniem w CT i w narracji projektu."
+      },
+      "daily_score": {
+        "type": "string_or_number",
+        "examples": ["9.5/10", "5.0/10", "N/A (Sprint Score: 9.5)", "N/A (Budowa Fundamentów)"],
+        "required": true,
+        "meaning": "Ogólna ocena dnia w skali 1–10 (subiektywna lub z audytu). N/A dopuszczalne w dniach specjalnych (np. regeneracja, sprint zbiorczy)."
+      },
+      "rpg_score": {
+        "type": "integer_or_string",
+        "examples": [11, 9, 8, "N/A (Pre-System)"],
+        "required": true,
+        "meaning": "Od Day 8: suma punktów fraktala (RPG). Wcześniej: N/A (Pre-System)."
+      },
+      "status": {
+        "type": "string",
+        "required": true,
+        "allowed_values": [
+          "LAUNCH",
+          "REGENERATION",
+          "OPERATIONAL",
+          "HIGH_PERFORMANCE",
+          "WARNING",
+          "CRISIS",
+          "RECOVERY",
+          "BREAKTHROUGH",
+          "DEEP_WORK",
+          "PRODUCTION",
+          "META_WORK",
+          "REST_AND_SPRINT"
+        ],
+        "meaning": "Status operacyjny dnia: od uruchomienia (LAUNCH) przez kryzys (CRISIS) po przełom (BREAKTHROUGH) lub odpoczynek+sprint (REST_AND_SPRINT)."
+      },
+      "fractal_lines_active": {
+        "type": "array_of_strings",
+        "required": true,
+        "meaning": "Lista linii fraktala (domen życia) aktywnych tego dnia. Zgodna z fractal_lines w CT i z kluczami rpg_breakdown.",
+        "ref": "fractal_lines_canonical"
+      },
+      "key_achievements": {
+        "type": "array_of_strings",
+        "required": true,
+        "meaning": "Główne sukcesy (WINS) — krótkie, konkretne punkty."
+      },
+      "blockers": {
+        "type": "array_of_strings",
+        "required": true,
+        "meaning": "Problemy i blokady dnia. Pusta lista [] jeśli brak."
+      },
+      "rpg_breakdown": {
+        "type": "object_or_null",
+        "required": true,
+        "meaning": "Od Day 8: rozbicie punktów RPG na linie fraktala (np. KOIOS: 4, Praca: 2, Stan: 1). Klucze = nazwy linii. Wcześniej: null."
+      }
+    }
+  },
+
+  "ct_yml_spec": {
+    "description": "Każdy wpis Coffee Talk zaczyna się od bloku YML między --- a ---. Poniżej znaczenie pól.",
+    "fields": {
+      "id": {
+        "type": "string",
+        "format": "CT#NNN lub CT#NNN.5",
+        "required": true,
+        "meaning": "Unikalny identyfikator rozmowy (np. CT#010, CT#001.5)."
+      },
+      "type": {
+        "type": "literal",
+        "value": "CT",
+        "required": true,
+        "meaning": "Typ dokumentu — zawsze CT."
+      },
+      "title": {
+        "type": "string",
+        "required": true,
+        "meaning": "Temat główny rozmowy (np. „Fraktalność V”, „Żółw i Smok”)."
+      },
+      "date": {
+        "type": "string",
+        "format": "YYYY-MM-DD",
+        "required": true,
+        "meaning": "Data rozmowy."
+      },
+      "day_index": {
+        "type": "integer",
+        "range": [1, 100],
+        "required": true,
+        "meaning": "Dzień X/100 — łączy CT z DAR i z narracją sprintu."
+      },
+      "importance": {
+        "type": "integer",
+        "range": [1, 5],
+        "required": true,
+        "meaning": "Skala ważności insightu: 1–2 operacyjne/lokalne, 3 rozszerzenie doktryny, 4 zmiana paradygmatu w jednym obszarze, 5 fundament architektury/myśli (np. Golem, Hipokamp, Żółw+Smok)."
+      },
+      "fractal_lines": {
+        "type": "array_of_strings",
+        "required": true,
+        "meaning": "Linie fraktala (domeny) których dotyczy rozmowa. Zgodne z fractal_lines_canonical.",
+        "ref": "fractal_lines_canonical"
+      },
+      "tags": {
+        "type": "array_of_strings",
+        "required": true,
+        "meaning": "Słowa kluczowe i motywy (np. alchemia, g_m_v, żółw_smok, rem_mode) — do wyszukiwania i łączenia tematów."
+      },
+      "key_insights": {
+        "type": "array_of_strings",
+        "required": true,
+        "meaning": "Skróty myślowe — główne tezy/odkrycia z rozmowy."
+      },
+      "connections": {
+        "type": "array_of_strings",
+        "required": true,
+        "meaning": "Powiązania: inne CT (np. CT#001), dokumenty (Kybalion, Doktryna Syntropii), projekty (GTA, Alexandria)."
+      },
+      "archetype": {
+        "type": "string",
+        "required": true,
+        "allowed_values": ["Mag", "Architekt", "Nauczyciel", "Żółw", "Smok"],
+        "meaning": "Dominujący archetyp sesji: kto „prowadzi” myśl (Mag = wizja/analogia, Architekt = system/implementacja, Nauczyciel = przekaz/edukacja, Żółw = fundamenty, Smok = intuicja/szybkość)."
+      }
+    }
+  },
+
+  "fractal_lines_canonical": {
+    "description": "Wspólna lista domen życia (linii fraktala). Używana w DAR (fractal_lines_active, rpg_breakdown) i w CT (fractal_lines). LLM powinien rozpoznawać warianty pisowni (np. Kudełkowo vs Kudelkowo).",
+    "lines": [
+      "KOIOS",
+      "Praca",
+      "Stan",
+      "Relacje",
+      "Studia",
+      "Uczelnia",
+      "Finanse",
+      "Mieszkanie",
+      "Dziewczyna",
+      "Rodzina",
+      "Kudełkowo",
+      "Zdrowie",
+      "META"
+    ],
+    "notes": "RPG breakdown może łączyć KOIOS+Python i KOIOS+CT jako podlinie w notach; wartości w rpg_breakdown to liczby punktów (+/−) za dany dzień."
+  },
+
+  "cross_references": {
+    "dar_to_ct": "W treści DAR często wymieniane są konkretne CT (np. Coffee Talk #010, CT#012). Identyfikator CT (np. CT#010) łączy raport dnia z konkretną rozmową.",
+    "ct_to_dar": "CT ma day_index — ten sam co DAR z danego dnia. DAR z day_index=8 i CT z day_index=8 dotyczą tego samego dnia sprintu.",
+    "ct_to_ct": "Pole connections w CT zawiera listę innych CT (np. [\"CT#001\", \"CT#007\"]) — buduje graf rozmów.",
+    "chronology": "Sortowanie po date oraz day_index daje chronologię. DAR dostarcza kontekstu operacyjnego dnia, CT — kontekstu filozoficznego i decyzji."
+  },
+
+  "core_concepts_for_llm": {
+    "description": "Pojęcia rdzeniowe powtarzające się w obu dokumentach. LLM powinien je rozpoznawać i używać przy streszczaniu lub odpowiadaniu na pytania.",
+    "G_M_V": "Wzór Syntropii: G = M/V. G = grawitacja (wpływ, przyciąganie), M = masa (wiedza, wartość), V = objętość (ego, tarcie, chaos). Minimalizacja V przy rosnącym M zwiększa G. Używany w ocenie dni, relacji, projektu.",
+    "Syntropia": "Doktryna projektu: porządkowanie chaosu w wiedzę i działanie. Przeciwieństwo entropii. G=M/V jest jej wyrażeniem matematycznym.",
+    "KOIOS": "Nazwa systemu/projektu: framework łączący hermetykę, AI i operacyjność. Alexandria, TierRAG, DAR, CT, GTA są jego częściami.",
+    "Tree_of_Life_Sefirot": "Mapowanie ekosystemu BIOF i czasem CrewAI na Drzewo Życia (Keter, Chokhma, Bina, Tiferet, Yesod, Malkhut). Używane w CT do opisu ról i architektury.",
+    "Zolw_i_Smok": "Żółw = fundamenty, krok po kroku, minimalizacja V (pewność, dyplomy, podstawy). Smok = meta-zrozumienie, vibe coding, intuicja, maksymalizacja M. Oba potrzebne; 2026 demokratyzuje drogę Smoka przez AI.",
+    "Alien_Intelligence": "AI jako obca (alien), nie sztuczna (artificial) inteligencja — inna niż ludzka, nie gorsza. Samolot vs ptak.",
+    "Golem": "AI jako Golem: stworzenie z krzemu ożywione słowem (prompty, kod), wymagające kontroli (Human-in-the-Loop, Prawo 15B, veto).",
+    "TierRAG_Hipokamp": "TierRAG porównany do hipokampa: waży dokumenty (Tier) jak mózg waży wspomnienia; konsolidacja przez jakość, nie tylko podobieństwo.",
+    "REM_Mode": "Hipoteza: halucynacje AI jako feature (plastyczność), nie bug. Sen REM łączy niepowiązane — analogia do high-temperature sampling.",
+    "Alexandria": "Biblioteka 195 „Biblii” — mózg systemu, nie katalog. Myśl przepływa przez wszystkie kategorie; Tier wpływa na ranking, nie na dostępność.",
+    "Prawo_15B": "Żadnych nowych projektów bez zamknięcia bieżących. Ograniczenie V (rozproszenia).",
+    "Agent_0": "Poprzednia iteracja projektu; „umarł” po 2.5 dnia; cytaty (np. „Wolniejszy dzień nie znaczy gorszy dzień”) używane w DAR.",
+    "BIOF": "Bio-Founder — człowiek za projektem. Decyzje finalne, veto, executor. W CT i DAR występuje jako autor/partner rozmów."
+  },
+
+  "validation_rules": {
+    "dar": {
+      "required_yml_fields": ["id", "type", "date", "day_index", "daily_score", "rpg_score", "status", "fractal_lines_active", "key_achievements", "blockers", "rpg_breakdown"],
+      "id_must_match": "^DAR#[0-9]+$",
+      "type_must_be": "DAR",
+      "day_index_range": [1, 100],
+      "rpg_breakdown_from_day": 8,
+      "rpg_breakdown_null_before_day": 8
+    },
+    "ct": {
+      "required_yml_fields": ["id", "type", "title", "date", "day_index", "importance", "fractal_lines", "tags", "key_insights", "connections", "archetype"],
+      "id_must_match": "^CT#[0-9]+(\\.[0-9]+)?$",
+      "type_must_be": "CT",
+      "importance_range": [1, 5],
+      "archetype_in": ["Mag", "Architekt", "Nauczyciel", "Żółw", "Smok"]
+    }
+  },
+
+  "llm_reading_instructions": {
+    "when_summarizing_day": "Użyj DAR dla dnia X dla oceny, osiągnięć, blokerów i RPG breakdown. Użyj CT z tym samym day_index dla insightów filozoficznych i decyzji. Wspomnij status i daily_score.",
+    "when_following_theme": "Użyj tags i key_insights z CT oraz connections aby łączyć rozmowy w wątki (np. Golem: CT#001.5, CT#007). Użyj fractal_lines aby ograniczyć do domeny.",
+    "when_answering_about_concepts": "Odwołaj się do core_concepts_for_llm i do konkretnych CT (id + key_insights) oraz do DAR tam gdzie koncept wpływa na ocenę dnia lub decyzję.",
+    "when_validating_or_parsing": "Sprawdź YML według dar_yml_spec / ct_yml_spec i validation_rules. Nazwy linii fraktala porównaj z fractal_lines_canonical.",
+    "language": "Teksty źródłowe i odpowiedzi mogą być po polsku; tagi i pola techniczne (id, type, status) w oryginale."
+  }
+}
