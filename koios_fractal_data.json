@@ -1,0 +1,768 @@
+{
+  "map_meta": {
+    "generated_at": "2026-02-15T22:54:26.710908+00:00",
+    "range": {
+      "from_day_index": 1,
+      "to_day_index": 13
+    },
+    "source_counts": {
+      "DAR": 12,
+      "CT": 17
+    }
+  },
+  "nodes": [
+    {
+      "id": "Dziewczyna",
+      "label": "Dziewczyna",
+      "total_score": 17.115,
+      "score_7d": 14.765,
+      "momentum_7d": 1.718,
+      "volatility_7d": 0.317,
+      "stability_7d": 0.683,
+      "status": "up",
+      "evidence_refs": [
+        "DAR#005",
+        "DAR#007",
+        "DAR#008",
+        "DAR#009",
+        "DAR#010",
+        "DAR#012",
+        "CT#010"
+      ]
+    },
+    {
+      "id": "Finanse",
+      "label": "Finanse",
+      "total_score": 14.61,
+      "score_7d": 9.485,
+      "momentum_7d": 0.501,
+      "volatility_7d": 0.437,
+      "stability_7d": 0.563,
+      "status": "up",
+      "evidence_refs": [
+        "DAR#002",
+        "DAR#010",
+        "CT#010",
+        "CT#018"
+      ]
+    },
+    {
+      "id": "KOIOS",
+      "label": "KOIOS",
+      "total_score": 94.55,
+      "score_7d": 49.725,
+      "momentum_7d": -0.367,
+      "volatility_7d": 0.281,
+      "stability_7d": 0.719,
+      "status": "flat",
+      "evidence_refs": [
+        "DAR#001",
+        "DAR#002",
+        "DAR#003",
+        "DAR#004",
+        "DAR#005",
+        "DAR#007",
+        "DAR#008",
+        "DAR#009",
+        "DAR#010",
+        "DAR#011",
+        "DAR#012",
+        "CT#001",
+        "CT#001.5",
+        "CT#002",
+        "CT#003",
+        "CT#005",
+        "CT#007",
+        "CT#008",
+        "CT#011",
+        "CT#012",
+        "CT#014",
+        "CT#015",
+        "CT#016",
+        "CT#017",
+        "CT#018"
+      ]
+    },
+    {
+      "id": "Kudelkowo",
+      "label": "Kudelkowo",
+      "total_score": 13.525,
+      "score_7d": 10.5,
+      "momentum_7d": 0.996,
+      "volatility_7d": 0.416,
+      "stability_7d": 0.584,
+      "status": "up",
+      "evidence_refs": [
+        "DAR#004",
+        "CT#014",
+        "CT#015",
+        "CT#018"
+      ]
+    },
+    {
+      "id": "META",
+      "label": "META",
+      "total_score": 47.25,
+      "score_7d": 28.5,
+      "momentum_7d": 0.946,
+      "volatility_7d": 0.346,
+      "stability_7d": 0.654,
+      "status": "up",
+      "evidence_refs": [
+        "DAR#003",
+        "CT#001.5",
+        "CT#002",
+        "CT#005",
+        "CT#006",
+        "CT#008",
+        "CT#010",
+        "CT#011",
+        "CT#012",
+        "CT#013",
+        "CT#015",
+        "CT#016",
+        "CT#017"
+      ]
+    },
+    {
+      "id": "Mieszkanie",
+      "label": "Mieszkanie",
+      "total_score": 5.219,
+      "score_7d": 3.831,
+      "momentum_7d": 0.316,
+      "volatility_7d": 0.35,
+      "stability_7d": 0.65,
+      "status": "flat",
+      "evidence_refs": [
+        "DAR#006",
+        "DAR#008"
+      ]
+    },
+    {
+      "id": "Praca",
+      "label": "Praca",
+      "total_score": 17.14,
+      "score_7d": 8.54,
+      "momentum_7d": -0.213,
+      "volatility_7d": 0.425,
+      "stability_7d": 0.575,
+      "status": "flat",
+      "evidence_refs": [
+        "DAR#001",
+        "DAR#004",
+        "DAR#008",
+        "DAR#009",
+        "DAR#011"
+      ]
+    },
+    {
+      "id": "Rodzina",
+      "label": "Rodzina",
+      "total_score": 9.619,
+      "score_7d": 8.231,
+      "momentum_7d": 0.945,
+      "volatility_7d": 0.341,
+      "stability_7d": 0.659,
+      "status": "up",
+      "evidence_refs": [
+        "DAR#006",
+        "DAR#008",
+        "DAR#009",
+        "DAR#011",
+        "CT#010"
+      ]
+    },
+    {
+      "id": "Stan",
+      "label": "Stan",
+      "total_score": 2.713,
+      "score_7d": 2.713,
+      "momentum_7d": 0.388,
+      "volatility_7d": 0.501,
+      "stability_7d": 0.499,
+      "status": "flat",
+      "evidence_refs": [
+        "DAR#009",
+        "DAR#010",
+        "DAR#011",
+        "DAR#012"
+      ]
+    },
+    {
+      "id": "Studia",
+      "label": "Studia",
+      "total_score": 11.505,
+      "score_7d": 8.48,
+      "momentum_7d": 0.707,
+      "volatility_7d": 0.349,
+      "stability_7d": 0.651,
+      "status": "up",
+      "evidence_refs": [
+        "DAR#004",
+        "DAR#007",
+        "DAR#009",
+        "DAR#010",
+        "DAR#011",
+        "CT#010"
+      ]
+    },
+    {
+      "id": "Uczelnia",
+      "label": "Uczelnia",
+      "total_score": 1.15,
+      "score_7d": 1.15,
+      "momentum_7d": 0.164,
+      "volatility_7d": 0.35,
+      "stability_7d": 0.65,
+      "status": "flat",
+      "evidence_refs": [
+        "DAR#008"
+      ]
+    },
+    {
+      "id": "Zdrowie",
+      "label": "Zdrowie",
+      "total_score": 9.0,
+      "score_7d": 9.0,
+      "momentum_7d": 1.286,
+      "volatility_7d": 0.35,
+      "stability_7d": 0.65,
+      "status": "up",
+      "evidence_refs": [
+        "DAR#008",
+        "CT#012",
+        "CT#013"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "Dziewczyna",
+      "to": "Finanse",
+      "strength": 0.2,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#010",
+        "CT#010"
+      ]
+    },
+    {
+      "from": "Dziewczyna",
+      "to": "KOIOS",
+      "strength": 0.4,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#005",
+        "DAR#007",
+        "DAR#010",
+        "DAR#012"
+      ]
+    },
+    {
+      "from": "Dziewczyna",
+      "to": "META",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#010"
+      ]
+    },
+    {
+      "from": "Dziewczyna",
+      "to": "Rodzina",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#010"
+      ]
+    },
+    {
+      "from": "Dziewczyna",
+      "to": "Stan",
+      "strength": 0.2,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#010",
+        "DAR#012"
+      ]
+    },
+    {
+      "from": "Dziewczyna",
+      "to": "Studia",
+      "strength": 0.2,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#007",
+        "CT#010"
+      ]
+    },
+    {
+      "from": "Finanse",
+      "to": "KOIOS",
+      "strength": 0.3,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#002",
+        "DAR#010",
+        "CT#018"
+      ]
+    },
+    {
+      "from": "Finanse",
+      "to": "Kudelkowo",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#018"
+      ]
+    },
+    {
+      "from": "Finanse",
+      "to": "META",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#010"
+      ]
+    },
+    {
+      "from": "Finanse",
+      "to": "Rodzina",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#010"
+      ]
+    },
+    {
+      "from": "Finanse",
+      "to": "Stan",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#010"
+      ]
+    },
+    {
+      "from": "Finanse",
+      "to": "Studia",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#010"
+      ]
+    },
+    {
+      "from": "KOIOS",
+      "to": "Kudelkowo",
+      "strength": 0.4,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#004",
+        "CT#014",
+        "CT#015",
+        "CT#018"
+      ]
+    },
+    {
+      "from": "KOIOS",
+      "to": "META",
+      "strength": 1.0,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#003",
+        "CT#001.5",
+        "CT#002",
+        "CT#005",
+        "CT#008",
+        "CT#011",
+        "CT#012",
+        "CT#015",
+        "CT#016",
+        "CT#017"
+      ]
+    },
+    {
+      "from": "KOIOS",
+      "to": "Mieszkanie",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#008"
+      ]
+    },
+    {
+      "from": "KOIOS",
+      "to": "Praca",
+      "strength": 0.5,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#001",
+        "DAR#004",
+        "DAR#008",
+        "DAR#009",
+        "DAR#011"
+      ]
+    },
+    {
+      "from": "KOIOS",
+      "to": "Rodzina",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#008"
+      ]
+    },
+    {
+      "from": "KOIOS",
+      "to": "Stan",
+      "strength": 0.4,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#009",
+        "DAR#010",
+        "DAR#011",
+        "DAR#012"
+      ]
+    },
+    {
+      "from": "KOIOS",
+      "to": "Studia",
+      "strength": 0.2,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#004",
+        "DAR#007"
+      ]
+    },
+    {
+      "from": "KOIOS",
+      "to": "Zdrowie",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#012"
+      ]
+    },
+    {
+      "from": "Kudelkowo",
+      "to": "META",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#015"
+      ]
+    },
+    {
+      "from": "Kudelkowo",
+      "to": "Praca",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#004"
+      ]
+    },
+    {
+      "from": "Kudelkowo",
+      "to": "Studia",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#004"
+      ]
+    },
+    {
+      "from": "META",
+      "to": "Rodzina",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#010"
+      ]
+    },
+    {
+      "from": "META",
+      "to": "Studia",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#010"
+      ]
+    },
+    {
+      "from": "META",
+      "to": "Zdrowie",
+      "strength": 0.2,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#012",
+        "CT#013"
+      ]
+    },
+    {
+      "from": "Mieszkanie",
+      "to": "Praca",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#008"
+      ]
+    },
+    {
+      "from": "Mieszkanie",
+      "to": "Rodzina",
+      "strength": 0.2,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#006",
+        "DAR#008"
+      ]
+    },
+    {
+      "from": "Praca",
+      "to": "Rodzina",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#008"
+      ]
+    },
+    {
+      "from": "Praca",
+      "to": "Stan",
+      "strength": 0.2,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#009",
+        "DAR#011"
+      ]
+    },
+    {
+      "from": "Praca",
+      "to": "Studia",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "DAR#004"
+      ]
+    },
+    {
+      "from": "Rodzina",
+      "to": "Studia",
+      "strength": 0.1,
+      "relation_type": "co_activation",
+      "lag_days": 0,
+      "evidence_refs": [
+        "CT#010"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "day_index": 1,
+      "date": "2026-02-03",
+      "line_scores": {
+        "KOIOS": 17.575,
+        "Praca": 5.575,
+        "META": 8.0
+      },
+      "daily_score_norm_0_1": 0.95,
+      "rpg_score_norm_0_1": null
+    },
+    {
+      "day_index": 2,
+      "date": "2026-02-04",
+      "line_scores": {
+        "KOIOS": 10.125,
+        "Finanse": 5.125
+      },
+      "daily_score_norm_0_1": 0.95,
+      "rpg_score_norm_0_1": null
+    },
+    {
+      "day_index": 3,
+      "date": "2026-02-06",
+      "line_scores": {
+        "KOIOS": 0.75,
+        "META": 0.75
+      },
+      "daily_score_norm_0_1": null,
+      "rpg_score_norm_0_1": null
+    },
+    {
+      "day_index": 4,
+      "date": "2026-02-06",
+      "line_scores": {
+        "KOIOS": 11.025,
+        "Praca": 3.025,
+        "META": 7.0,
+        "Studia": 3.025,
+        "Kudelkowo": 3.025
+      },
+      "daily_score_norm_0_1": 0.95,
+      "rpg_score_norm_0_1": null
+    },
+    {
+      "day_index": 5,
+      "date": "2026-02-07",
+      "line_scores": {
+        "KOIOS": 5.35,
+        "META": 3.0,
+        "Dziewczyna": 2.35
+      },
+      "daily_score_norm_0_1": 0.5,
+      "rpg_score_norm_0_1": null
+    },
+    {
+      "day_index": 6,
+      "date": "2026-02-08",
+      "line_scores": {
+        "Rodzina": 1.387,
+        "Mieszkanie": 1.387
+      },
+      "daily_score_norm_0_1": 0.35,
+      "rpg_score_norm_0_1": null
+    },
+    {
+      "day_index": 7,
+      "date": "2026-02-09",
+      "line_scores": {
+        "KOIOS": 2.4,
+        "Studia": 2.4,
+        "Dziewczyna": 2.4
+      },
+      "daily_score_norm_0_1": 0.65,
+      "rpg_score_norm_0_1": null
+    },
+    {
+      "day_index": 8,
+      "date": "2026-02-10",
+      "line_scores": {
+        "KOIOS": 11.681,
+        "Praca": 2.681,
+        "Finanse": 4.0,
+        "META": 17.0,
+        "Studia": 4.0,
+        "Dziewczyna": 6.3,
+        "Rodzina": 6.681,
+        "Mieszkanie": 3.831,
+        "Uczelnia": 1.15,
+        "Zdrowie": 9.0
+      },
+      "daily_score_norm_0_1": 0.8,
+      "rpg_score_norm_0_1": 0.775
+    },
+    {
+      "day_index": 9,
+      "date": "2026-02-11",
+      "line_scores": {
+        "KOIOS": 7.642,
+        "Praca": 2.492,
+        "Kudelkowo": 2.0,
+        "Dziewczyna": 1.05,
+        "Rodzina": 1.05,
+        "Stan": 0.392
+      },
+      "daily_score_norm_0_1": 0.75,
+      "rpg_score_norm_0_1": 0.725
+    },
+    {
+      "day_index": 10,
+      "date": "2026-02-12",
+      "line_scores": {
+        "KOIOS": 9.225,
+        "Finanse": 1.485,
+        "META": 4.5,
+        "Studia": 1.08,
+        "Kudelkowo": 4.5,
+        "Dziewczyna": 2.565,
+        "Stan": 1.485
+      },
+      "daily_score_norm_0_1": 0.85,
+      "rpg_score_norm_0_1": 0.7
+    },
+    {
+      "day_index": 11,
+      "date": "2026-02-13",
+      "line_scores": {
+        "KOIOS": 10.367,
+        "Praca": 3.367,
+        "META": 7.0,
+        "Studia": 1.0,
+        "Rodzina": 0.5,
+        "Stan": -0.633
+      },
+      "daily_score_norm_0_1": 0.75,
+      "rpg_score_norm_0_1": 0.675
+    },
+    {
+      "day_index": 12,
+      "date": "2026-02-15",
+      "line_scores": {
+        "KOIOS": 4.41,
+        "Dziewczyna": 2.45,
+        "Stan": 1.47
+      },
+      "daily_score_norm_0_1": 0.8,
+      "rpg_score_norm_0_1": 0.675
+    },
+    {
+      "day_index": 13,
+      "date": "2026-02-15",
+      "line_scores": {
+        "KOIOS": 4.0,
+        "Finanse": 4.0,
+        "Kudelkowo": 4.0
+      },
+      "daily_score_norm_0_1": null,
+      "rpg_score_norm_0_1": null
+    }
+  ],
+  "alerts": [
+    {
+      "id": "alert_001",
+      "severity": "warning",
+      "line": "KOIOS",
+      "message": "Linia KOIOS traci momentum (7d: -0.37)",
+      "rule": "line_decline"
+    },
+    {
+      "id": "alert_002",
+      "severity": "warning",
+      "line": "Praca",
+      "message": "Linia Praca traci momentum (7d: -0.21)",
+      "rule": "line_decline"
+    }
+  ]
+}
